@@ -4,7 +4,7 @@ var PortOldText = "7500"
 var IPOldText = ""
 
 func _on_Port_text_changed():
-	if $Port.text.length() > 4 or not $Port.text == "" and not $Port.text.is_valid_integer(): # I was setting it before it was used with the old value before. Then I realised I could package it all together! And then it didn't account for spaces. Then I fixed it and my code worked first time!
+	if $Port.text.length() > 5 or not $Port.text == "" and not $Port.text.is_valid_integer(): # I was setting it before it was used with the old value before. Then I realised I could package it all together! And then it didn't account for spaces. Then I fixed it and my code worked first time!
 		$Port.text = PortOldText
 		$Port.cursor_set_column(4)
 	else:
@@ -18,9 +18,11 @@ func _on_IP_text_changed():
 		IPOldText = $IP.text
 
 func _on_Join_pressed():
-	if $Port.text.length() == 4 and $Port.text.is_valid_integer():
+	if int($Port.text) in range(1024, 65535) and $Port.text.is_valid_integer():
 		if $IP.text.is_valid_ip_address():
-			pass
+			ProjectSettings.set_setting("NetworkData/Hosting", false)
+			ProjectSettings.set_setting("NetworkData/IP", $IP.text)
+			ProjectSettings.set_setting("NetworkData/Port", str($Port.text))
 		else:
 			$Error.text = "Error: Invalid IP Address."
 			$"Error Disappear".start()

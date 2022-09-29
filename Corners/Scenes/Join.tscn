@@ -37,7 +37,7 @@ margin_top = 236.0
 margin_right = 664.0
 margin_bottom = 250.0
 rect_scale = Vector2( 1.5, 1.5 )
-text = "Port (Default: 7500"
+text = "Port (Default: 7500)"
 
 [node name="IP" type="TextEdit" parent="."]
 margin_left = 224.0
